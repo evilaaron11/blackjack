@@ -7,6 +7,20 @@ ACE = 11
 MAX_VALUE = 21
 
 class Game:
+   # Variables to keep track of current deck and hands
+   deck = None
+   player = None
+   house = None
+
+   def __init__(self, deck):
+      self.deck = deck
+      self.initHand()
+
+   def initHand(self):
+      for i in 2:
+         player = self.deck.drawCard()
+         house = self.deck.drawCards()
+
    def checkHand(cards):
       score = 0
       for i in cards:

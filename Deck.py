@@ -16,11 +16,17 @@ class Deck:
          if currCount > self.NUM_PER_SUIT:
             currCount = 1
             currSuit = self.suits.pop()
+         if currCount <= 10:
+            self.cards.append(Card(currSuit, currCount))
+         elif currCount == 11:
+            self.cards.append(Card(currSuit, "J"))
+         elif currCount == 12:
+            self.cards.append(Card(currSuit, "Q"))
+         elif currCount == 13:
+            self.cards.append(Card(currSuit, "K"))
 
-         self.cards.append(Card(currSuit, currCount))
          currCount = currCount + 1
       random.shuffle(self.cards)
-      print "Got Here"
 
    def printCards(self):
       for i in self.cards:

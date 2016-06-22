@@ -7,5 +7,4 @@ class Card:
       self.val = rank
 
    def __str__(self):
-      return "Suit is " + self.suit + " and Value is " + self.val
-
+      return str(self.val) + " of " + self.suit

@@ -17,7 +17,7 @@ def main():
    if currGame.checkIfWon(beforeHouse):
       return
    print "The dealers top card is a " + str(currGame.house[0])
-
+   
    while inProgress:
       score = currGame.checkHand(currGame.player)
       print "Current hand: " + str(score)
@@ -30,6 +30,7 @@ def main():
       
       print
       input = raw_input()
+      print
       if input == "q":
          inProgress = False
       elif input == "h":

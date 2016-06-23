@@ -12,10 +12,13 @@ class Game:
    deck = None
    player = []
    house = []
+   playerBank = None
+   currBet = 0
 
    def __init__(self, deck):
       self.deck = deck
       self.initHand()
+      self.playerBank = 1000 # Default of $1000
 
    def initHand(self):
       for i in range(0,2):
@@ -37,6 +40,13 @@ class Game:
             score += FACE_VALUE
 
       return score
+
+   def placeBet(self, bet):
+      if bet > self.currBet:
+         raise ValueError("Not enough money in the bank")
+      else:
+         self.playerBank -= bet
+         self.currBet = bet
 
    def hitMe(self):
       self.player.append(self.deck.drawCard())
@@ -87,6 +97,8 @@ class Game:
             return True
          else:
             return False
+      elif self.checkBust(houseScore):
+         return True
       else:
          return playerScore > houseScore
 

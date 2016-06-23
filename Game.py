@@ -16,8 +16,8 @@ class Game:
    currBet = 0
 
    def __init__(self, deck):
-      player = []
-      house = []
+      self.player = []
+      self.house = []
       self.deck = deck
       self.initHand()
       #self.playerBank = 1000 # Default of $1000

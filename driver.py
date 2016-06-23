@@ -67,6 +67,7 @@ def main():
          print
       print "Your current bank has $" + str(currGame.playerBank)
       betPlaced = False
+	  #deck = None
       deck = Deck()
       currGame = Game(deck)
 

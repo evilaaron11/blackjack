@@ -32,7 +32,9 @@ class Deck:
          currCount = currCount + 1
       random.shuffle(self.cards)
 
-   def
+   def drawCard(self):
+      return self.cards.pop()
+
    def printCards(self):
       for i in self.cards:
          print i

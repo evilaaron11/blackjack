@@ -9,17 +9,17 @@ MAX_VALUE = 21
 class Game:
    # Variables to keep track of current deck and hands
    deck = None
-   player = None
-   house = None
+   player = []
+   house = []
 
    def __init__(self, deck):
       self.deck = deck
       self.initHand()
 
    def initHand(self):
-      for i in 2:
-         player = self.deck.drawCard()
-         house = self.deck.drawCards()
+      for i in range(0,2):
+         self.player.append(self.deck.drawCard())
+         self.house.append(self.deck.drawCard())
 
    def checkHand(cards):
       score = 0
@@ -36,5 +36,16 @@ class Game:
 
       return score
 
+   def hitMe(self):
+      self.player.append(self.deck.drawCard())
+
    def checkBust(score):
       return score > MAX_VALUE
+
+   def printHand(self):
+      for i in self.player:
+         print i
+
+   #run AI
+   def runHouse(self):
+      print "Not yet implemented"

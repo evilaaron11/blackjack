@@ -16,12 +16,11 @@ def main():
 
    while True:
       while not betPlaced:
-         print "Place your bet:"
-         bet = raw_input()
+         bet = raw_input("Place your bet: ")
          if bet == "q":
             return
          elif not str(bet).isdigit():
-            print "Pleae enter a valid number"
+            print "Please enter a valid number"
          else:
             try:
                currGame.placeBet(int(bet))
@@ -33,8 +32,8 @@ def main():
          print
       
       currGame.printHand()
-      if currGame.checkIfWon(beforeHouse):
-         return
+      #if currGame.checkIfWon(beforeHouse):
+         #return
       print "The dealers top card is a " + str(currGame.house[0])
       inProgress = True 
 
@@ -44,10 +43,10 @@ def main():
          print "Current hand: " + str(score)
          if currGame.checkBust(score):
             print "You have busted. You lose."
-            break
+            inProgress = False
          elif currGame.checkIfWon(beforeHouse):
             currGame.runHouse()
-            break
+            inProgress = False
 
          print
          input = raw_input()
@@ -68,5 +67,7 @@ def main():
          print
       print "Your current bank has $" + str(currGame.playerBank)
       betPlaced = False
+      deck = Deck()
+      currGame = Game(deck)
 
 if __name__ == "__main__": main()

@@ -12,13 +12,15 @@ class Game:
    deck = None
    player = []
    house = []
-   playerBank = None
+   playerBank = 1000
    currBet = 0
 
    def __init__(self, deck):
+      player = []
+      house = []
       self.deck = deck
       self.initHand()
-      self.playerBank = 1000 # Default of $1000
+      #self.playerBank = 1000 # Default of $1000
 
    def initHand(self):
       for i in range(0,2):
@@ -73,7 +75,7 @@ class Game:
       playerScore = self.checkHand(self.player)
       houseScore = self.checkHand(self.house)
 
-      while houseScore < HOUSE_STAY:
+      while houseScore < HOUSE_STAY and houseScore < playerScore:
          print "House score: " + str(houseScore)
          print
          print "Dealer took a hit\n"
@@ -83,7 +85,7 @@ class Game:
          houseScore = self.checkHand(self.house)
 
       if self.checkIfWon(False):
-         self.playerBank += self.currBet
+         self.playerBank += 2 * self.currBet
          print "You won"
       else:
          print "You lose"

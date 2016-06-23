@@ -5,44 +5,68 @@ import sys
 def main():
    beforeHouse = True
    deck = Deck()
-   inProgress = True
+   betPlaced = False
+   bet = None
 
    print "******Welcome to Blackjack**********"
    print "**Press \'h\' to hit and \'s\' to stay**"
    print "***To quit at any time, press \'q\'***\n"
-   
-   currGame = Game(deck)
-   currGame.printHand()
-   
-   if currGame.checkIfWon(beforeHouse):
-      return
-   print "The dealers top card is a " + str(currGame.house[0])
-   
-   while inProgress:
-      score = currGame.checkHand(currGame.player)
-      print "Current hand: " + str(score)
-      if currGame.checkBust(score):
-         print "You have busted. You lose."
-         break
-      elif currGame.checkIfWon(beforeHouse):
-         currGame.runHouse()
-         break
-      
-      print
-      input = raw_input()
-      print
-      if input == "q":
-         inProgress = False
-      elif input == "h":
-         currGame.hitMe()
-         currGame.printHand()
-      elif input == "s": 
-         currGame.runHouse()
-         beforeHouse = False
-         break
-      else:
-         print "Invalid input"
 
-      print
+   currGame = Game(deck)
+
+   while True:
+      while not betPlaced:
+         print "Place your bet:"
+         bet = raw_input()
+         if bet == "q":
+            return
+         elif not str(bet).isdigit():
+            print "Pleae enter a valid number"
+         else:
+            try:
+               currGame.placeBet(int(bet))
+            except ValueError,r:
+               print str(r)
+               continue
+
+         betPlaced = True
+         print
+      
+      currGame.printHand()
+      if currGame.checkIfWon(beforeHouse):
+         return
+      print "The dealers top card is a " + str(currGame.house[0])
+      inProgress = True 
+
+      while inProgress:
+
+         score = currGame.checkHand(currGame.player)
+         print "Current hand: " + str(score)
+         if currGame.checkBust(score):
+            print "You have busted. You lose."
+            break
+         elif currGame.checkIfWon(beforeHouse):
+            currGame.runHouse()
+            break
+
+         print
+         input = raw_input()
+         print
+         if input == "q":
+            inProgress = False
+            return
+         elif input == "h":
+            currGame.hitMe()
+            currGame.printHand()
+         elif input == "s":
+            currGame.runHouse()
+            beforeHouse = False
+            inProgress = False
+         else:
+            print "Invalid input"
+
+         print
+      print "Your current bank has $" + str(currGame.playerBank)
+      betPlaced = False
 
 if __name__ == "__main__": main()

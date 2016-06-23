@@ -42,7 +42,7 @@ class Game:
       return score
 
    def placeBet(self, bet):
-      if bet > self.currBet:
+      if bet > self.playerBank:
          raise ValueError("Not enough money in the bank")
       else:
          self.playerBank -= bet
@@ -83,6 +83,7 @@ class Game:
          houseScore = self.checkHand(self.house)
 
       if self.checkIfWon(False):
+         self.playerBank += self.currBet
          print "You won"
       else:
          print "You lose"

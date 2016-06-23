@@ -5,11 +5,12 @@ import sys
 def main():
    beforeHouse = True
    deck = Deck()
-   #deck.printCards()
    inProgress = True
-   print "Welcome to Blackjack"
-   print "Press \'h\' to hit and \'s\' to stay"
-   print "To quit at any time, press \'q\'"
+
+   print "******Welcome to Blackjack**********"
+   print "**Press \'h\' to hit and \'s\' to stay**"
+   print "***To quit at any time, press \'q\'***\n"
+   
    currGame = Game(deck)
    currGame.printHand()
    
@@ -26,7 +27,8 @@ def main():
       elif currGame.checkIfWon(beforeHouse):
          currGame.runHouse()
          break
-
+      
+      print
       input = raw_input()
       if input == "q":
          inProgress = False
@@ -39,5 +41,7 @@ def main():
          break
       else:
          print "Invalid input"
+
+      print
 
 if __name__ == "__main__": main()

@@ -57,15 +57,17 @@ class Game:
 
    #run AI
    def runHouse(self):
-      print "Dealer\'s hand:"
+      print "Houses\'s turn:"
       self.printDealer()
 
       playerScore = self.checkHand(self.player)
       houseScore = self.checkHand(self.house)
 
-      print "House score: " + str(houseScore)
       while houseScore < HOUSE_STAY:
-         print "Dealer took a hit"
+         print "House score: " + str(houseScore)
+         print
+         print "Dealer took a hit\n"
+
          self.hitDealer()
          self.printDealer()
          houseScore = self.checkHand(self.house)

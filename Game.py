@@ -13,6 +13,7 @@ class Game:
    deck = None
    player = []
    house = []
+   split = []
    playerBank = 0
    currBet = 0
 
@@ -31,17 +32,23 @@ class Game:
 
    def checkHand(self, cards):
       score = 0
+      numAces = 0
       for i in cards:
          currVal = str(i.val)
          if currVal.isdigit():
             score += i.val
          elif i.val == "A":
-            if MAX_VALUE > score + ACE:
+            if MAX_VALUE >= (score + ACE):
                score += ACE
             else:
                score += 1
+            numAces += 1
          else:
             score += FACE_VALUE
+
+      while numAces > 0 and score > MAX_SCORE:
+         score -= FACE_VALUE
+         numAces -= 1
 
       return score
 
@@ -104,6 +111,14 @@ class Game:
          same = (self.player[0].val == self.player[1].val)
 
       return same
+
+   def doSplit(self):
+      tempCard1 = self.player[0]
+      tempCard2 = self.player[1]
+      self.player = []
+      self.player.append(tempCard1)
+      self.split.append(tempCard2)
+
 
    def checkIfWon(self, beforeHouse):
       playerScore = self.checkHand(self.player)

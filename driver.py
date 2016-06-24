@@ -10,7 +10,7 @@ def main():
    bet = None
 
    print "******Welcome to Blackjack**********"
-   print "**Press \'h\' to hit and \'s\' to stay**"
+   print "*Press \'h\' to hit and \'s\' to stand**"
    print "***To quit at any time, press \'q\'***\n"
    print "\n*****You have $" + str(BANK) + " in the Bank*****\n"
    currGame = Game(deck, BANK)
@@ -40,7 +40,7 @@ def main():
       inProgress = True 
 
       while inProgress:
-         
+         didSplit = False
          beforeHouse = True
          score = currGame.checkHand(currGame.player)
          print "Current hand: " + str(score)
@@ -54,7 +54,7 @@ def main():
             inProgress = False
             continue
          if currGame.checkIfCanSplit():
-            print "You can now split by typing sp"
+            print "You can now split by typing \'sp\'"
             canSplit = True
          else:
             canSplit = False
@@ -75,6 +75,7 @@ def main():
          elif input == "sp" and canSplit:
             #put code here
             print "Not implemented yet"
+            didSplit = True
          else:
             print "Invalid input"
 

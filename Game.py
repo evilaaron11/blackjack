@@ -98,6 +98,13 @@ class Game:
    def checkIfTied(self):
       return self.checkHand(self.player) == self.checkHand(self.house)
 
+   def checkIfCanSplit(self):
+      same = False
+      if len(self.player) == 2:
+         same = (self.player[0].val == self.player[1].val)
+
+      return same
+
    def checkIfWon(self, beforeHouse):
       playerScore = self.checkHand(self.player)
       houseScore = self.checkHand(self.house)

@@ -14,6 +14,7 @@ def main():
    print "***To quit at any time, press \'q\'***\n"
    print "\n*****You have $" + str(BANK) + " in the Bank*****\n"
    currGame = Game(deck, BANK)
+   #currGame.deck.printCards()
 
    while True:
       while not betPlaced:
@@ -39,19 +40,24 @@ def main():
       inProgress = True 
 
       while inProgress:
-
+         
          beforeHouse = True
          score = currGame.checkHand(currGame.player)
          print "Current hand: " + str(score)
          if currGame.checkBust(score):
             print "You have busted. You lose."
-            currGame.playerBank -= bet
+            currGame.playerBank -= int(bet)
             inProgress = False
             continue
          elif currGame.checkIfWon(beforeHouse):
             currGame.runHouse()
             inProgress = False
             continue
+         if currGame.checkIfCanSplit():
+            print "You can now split by typing sp"
+            canSplit = True
+         else:
+            canSplit = False
 
          print
          input = raw_input()
@@ -66,6 +72,9 @@ def main():
             currGame.runHouse()
             beforeHouse = False
             inProgress = False
+         elif input == "sp" and canSplit:
+            #put code here
+            print "Not implemented yet"
          else:
             print "Invalid input"
 

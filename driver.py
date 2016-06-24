@@ -2,8 +2,9 @@ from Deck import *
 from Game import *
 import sys
 
+BANK = 1000
+
 def main():
-   beforeHouse = True
    deck = Deck()
    betPlaced = False
    bet = None
@@ -11,8 +12,8 @@ def main():
    print "******Welcome to Blackjack**********"
    print "**Press \'h\' to hit and \'s\' to stay**"
    print "***To quit at any time, press \'q\'***\n"
-
-   currGame = Game(deck)
+   print "\n*****You have $" + str(BANK) + " in the Bank*****\n"
+   currGame = Game(deck, BANK)
 
    while True:
       while not betPlaced:
@@ -24,11 +25,11 @@ def main():
          else:
             try:
                currGame.placeBet(int(bet))
+               betPlaced = True
             except ValueError,r:
                print str(r)
                continue
 
-         betPlaced = True
          print
       
       currGame.printHand()
@@ -39,14 +40,18 @@ def main():
 
       while inProgress:
 
+         beforeHouse = True
          score = currGame.checkHand(currGame.player)
          print "Current hand: " + str(score)
          if currGame.checkBust(score):
             print "You have busted. You lose."
+            currGame.playerBank -= bet
             inProgress = False
+            continue
          elif currGame.checkIfWon(beforeHouse):
             currGame.runHouse()
             inProgress = False
+            continue
 
          print
          input = raw_input()
@@ -65,10 +70,14 @@ def main():
             print "Invalid input"
 
          print
-      print "Your current bank has $" + str(currGame.playerBank)
+      bank = currGame.playerBank
+      print "Your current bank has $" + str(bank)
+      if bank == 0:
+         print "You don\'t have money left in the bank. You lose"
+         return
       betPlaced = False
 	  #deck = None
       deck = Deck()
-      currGame = Game(deck)
+      currGame = Game(deck, bank)
 
 if __name__ == "__main__": main()

@@ -1,5 +1,6 @@
 from Deck import *
 from Card import *
+import time
 
 # Constants
 FACE_VALUE = 10
@@ -12,12 +13,13 @@ class Game:
    deck = None
    player = []
    house = []
-   playerBank = 1000
+   playerBank = 0
    currBet = 0
 
-   def __init__(self, deck):
+   def __init__(self, deck, bankVal):
       self.player = []
       self.house = []
+      self.playerBank = bankVal
       self.deck = deck
       self.initHand()
       #self.playerBank = 1000 # Default of $1000
@@ -47,7 +49,6 @@ class Game:
       if bet > self.playerBank:
          raise ValueError("Not enough money in the bank")
       else:
-         self.playerBank -= bet
          self.currBet = bet
 
    def hitMe(self):
@@ -78,29 +79,39 @@ class Game:
       while houseScore < HOUSE_STAY and houseScore < playerScore:
          print "House score: " + str(houseScore)
          print
+         time.sleep(2)
          print "Dealer took a hit\n"
 
          self.hitDealer()
          self.printDealer()
          houseScore = self.checkHand(self.house)
 
-      if self.checkIfWon(False):
-         self.playerBank += 2 * self.currBet
+      if self.checkIfTied():
+         print "You have tied"   
+      elif self.checkIfWon(False):
+         self.playerBank += self.currBet
          print "You won"
       else:
+         self.playerBank -= self.currBet
          print "You lose"
+
+   def checkIfTied(self):
+      return self.checkHand(self.player) == self.checkHand(self.house)
 
    def checkIfWon(self, beforeHouse):
       playerScore = self.checkHand(self.player)
       houseScore = self.checkHand(self.house)
-
+      if not beforeHouse:
+         print "House score: " + str(houseScore)
       if beforeHouse:
          if playerScore == MAX_VALUE:
             print "You have 21"
+            print 
             return True
          else:
             return False
       elif self.checkBust(houseScore):
+         print "\nThe House has busted"
          return True
       else:
          return playerScore > houseScore

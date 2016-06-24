@@ -13,11 +13,13 @@ class Deck:
       currCount = 1
       suitNum = 0
       while len(self.cards) < DECK_SIZE:
-         currSuit = suits[suitNum]
          
          if currCount > NUM_PER_SUIT:
             currCount = 1
             suitNum += 1
+
+         currSuit = suits[suitNum]
+         
          if currCount <= 10:
             if currCount > 1:
                self.cards.append(Card(currSuit, currCount))
